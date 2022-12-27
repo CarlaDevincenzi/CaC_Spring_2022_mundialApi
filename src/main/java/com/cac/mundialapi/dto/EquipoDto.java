@@ -1,10 +1,12 @@
 package com.cac.mundialapi.dto;
 
-import java.util.List;
+import com.cac.mundialapi.dto.request.JugadorDtoReq;
+
+import java.util.Set;
 
 public class EquipoDto {
     private String country;
     private DirectorTecnicoDto dt;
-    private List<JugadorDto> teamPlayers; // --- SE CREA VACIO?
+    private Set<JugadorDtoReq> teamPlayers; // --- SE CREA VACIO?
     private int worldCups;
 }

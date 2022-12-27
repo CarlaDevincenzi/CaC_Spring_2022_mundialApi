@@ -1,15 +1,14 @@
-package com.cac.mundialapi.dto;
+package com.cac.mundialapi.dto.request;
 
-import com.cac.mundialapi.entities.Posicion;
+import com.cac.mundialapi.entity.Posicion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
-public class JugadorDto {
+public class JugadorDtoReq {
     private String name;
     private String lastName;
     private Posicion rolePlaying;
@@ -17,7 +16,7 @@ public class JugadorDto {
 
     private int goals;
 
-    public JugadorDto(String name, String lastName, Posicion rolePlaying, LocalDate birthDate, int goals) {
+    public JugadorDtoReq(String name, String lastName, Posicion rolePlaying, LocalDate birthDate, int goals) {
         this.name = name;
         this.lastName = lastName;
         this.rolePlaying = rolePlaying;

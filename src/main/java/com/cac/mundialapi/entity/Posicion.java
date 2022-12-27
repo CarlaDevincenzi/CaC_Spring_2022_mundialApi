@@ -1,4 +1,4 @@
-package com.cac.mundialapi.entities;
+package com.cac.mundialapi.entity;
 
 public enum Posicion {
     ARQUERO,
