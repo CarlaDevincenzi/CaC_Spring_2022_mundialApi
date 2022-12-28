@@ -1,10 +1,8 @@
 package com.cac.mundialapi.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,17 +10,17 @@ import java.util.Set;
 @Entity
 @Table(name = "equipos")
 public class Equipo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_team")
     private Long idTeam;
 
     private String country;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dt_id", nullable = false)
+    @JoinColumn(name = "dt_id")
     private DirectorTecnico dt;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", orphanRemoval = true)
     private Set<Jugador> teamPlayers;
 
     private int worldCups;
