@@ -1,6 +1,5 @@
 package com.cac.mundialapi.dto.request;
 
-import com.cac.mundialapi.dto.EquipoDto;
 import com.cac.mundialapi.entity.Posicion;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +12,6 @@ public class JugadorDtoReq {
     private Posicion rolePlaying;
     private LocalDate birthDate;
     private int goals;
-    private EquipoDto team;
+    private EquipoDtoReq team;
 
 }
