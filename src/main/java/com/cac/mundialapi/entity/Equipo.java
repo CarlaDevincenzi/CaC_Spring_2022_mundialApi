@@ -4,7 +4,7 @@ package com.cac.mundialapi.entity;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Getter @Setter
 @Entity
@@ -21,7 +21,7 @@ public class Equipo {
     private DirectorTecnico dt;
 
     @OneToMany(mappedBy = "team", orphanRemoval = true)
-    private Set<Jugador> teamPlayers;
+    private List<Jugador> teamPlayers;
 
     private int worldCups;
 

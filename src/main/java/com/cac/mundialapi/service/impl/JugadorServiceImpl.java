@@ -1,9 +1,11 @@
 package com.cac.mundialapi.service.impl;
 
 import com.cac.mundialapi.dto.JugadorDtoResp;
+import com.cac.mundialapi.dto.SuccessDto;
 import com.cac.mundialapi.dto.UpdateGolesDto;
 import com.cac.mundialapi.dto.request.JugadorDtoReq;
 import com.cac.mundialapi.entity.Jugador;
+import com.cac.mundialapi.exception.NotFoundException;
 import com.cac.mundialapi.repository.I_JugadorRepository;
 import com.cac.mundialapi.service.I_JugadorService;
 import org.modelmapper.ModelMapper;
@@ -60,6 +62,18 @@ public class JugadorServiceImpl implements I_JugadorService {
             jugadorRepository.save(j);
         }
         return jugadorDtoResp;
+    }
+
+    @Override
+    public SuccessDto golesDeUnJugador(Long id) {
+        Optional<Jugador> jugador = jugadorRepository.findById(id);
+        if(jugador.isPresent()){
+            Jugador j = jugador.get();
+
+            return new SuccessDto("Cantidad de goles de " +
+                    j.getName() + " " + j.getLastName() + " ---> " + j.getGoals());
+        }
+        throw new NotFoundException("No se encontro el jugador ingresado");
     }
 
 

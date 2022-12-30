@@ -1,16 +1,20 @@
 package com.cac.mundialapi.service.impl;
 
+import com.cac.mundialapi.dto.GoleadoresPorPaisDto;
+import com.cac.mundialapi.dto.SuccessDto;
 import com.cac.mundialapi.dto.request.EquipoDtoReq;
 import com.cac.mundialapi.dto.EquipoDtoResp;
 import com.cac.mundialapi.dto.JugadorDtoResp;
 import com.cac.mundialapi.entity.Equipo;
 import com.cac.mundialapi.entity.Jugador;
+import com.cac.mundialapi.exception.NotFoundException;
 import com.cac.mundialapi.repository.I_EquipoRepository;
 import com.cac.mundialapi.service.I_EquipoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
 
 @Service
 public class EquipoServiceImpl implements I_EquipoService {
@@ -48,7 +52,7 @@ public class EquipoServiceImpl implements I_EquipoService {
         List<JugadorDtoResp> jugadoresDto = new ArrayList<>();
 
         if(equipo.isPresent()){
-            Set<Jugador> jugadores = equipo.get().getTeamPlayers();
+            List<Jugador> jugadores = equipo.get().getTeamPlayers();
             jugadores.stream()
                     .forEach(j -> jugadoresDto.add(modelMapper.map(j, JugadorDtoResp.class)));
         }
@@ -68,15 +72,46 @@ public class EquipoServiceImpl implements I_EquipoService {
     }
 
     @Override
-    public String deleteEquipo(Long id_team) {
+    public SuccessDto deleteEquipo(Long id_team) {
         if(equipoRepository.existsById(id_team)){
             equipoRepository.deleteById(id_team);
-        }else{
-            return "No se hallaba el equipo buscado";
+            return new SuccessDto("Equipo eliminado satisfactoriamente");
         }
-
-        return "Equipo eliminado satisfactoriamente";
+        throw new NotFoundException("No se hallaba el equipo buscado");
     }
 
+    private Jugador maxGoleador(List<Jugador> jugadores){
+        Jugador max = null;
+        int maxGoals;
+
+        if(jugadores != null && !jugadores.isEmpty()){
+            max = jugadores.get(0);
+            maxGoals = max.getGoals();
+            for(Jugador j: jugadores){
+                if(j.getGoals() > maxGoals){
+                    max = j;
+                    maxGoals = j.getGoals();
+                }
+            }
+        }
+
+        return max;
+    }
+
+    @Override
+    public List<GoleadoresPorPaisDto> goleadoresPorEquipoAlfabeticamente() {
+        List<Equipo> equipos = equipoRepository.findAllByOrderByCountryAsc();
+        List<GoleadoresPorPaisDto> equiposDto = new ArrayList<>();
+
+        for(Equipo e: equipos){
+            Jugador maxGol = maxGoleador(e.getTeamPlayers());
+            if(maxGol != null) {
+                equiposDto.add(new GoleadoresPorPaisDto(e.getCountry(),
+                        maxGol.getLastName() + " " + maxGol.getName(), maxGol.getGoals()));
+            }
+        }
+
+        return equiposDto;
+    }
 
 }

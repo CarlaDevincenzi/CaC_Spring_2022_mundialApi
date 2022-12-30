@@ -31,6 +31,11 @@ public class JugadorController {
         return new ResponseEntity<>(jugadorService.updateGolesJugador(cant, id_player), HttpStatus.OK);
     }
 
+    @GetMapping("/goles/jugador/{id_player}")
+    public ResponseEntity<?> golesDeUnJugador(@PathVariable Long id_player){
+        return new ResponseEntity<>(jugadorService.golesDeUnJugador(id_player), HttpStatus.OK);
+    }
+
 
 
 }

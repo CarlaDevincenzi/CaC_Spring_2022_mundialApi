@@ -38,11 +38,20 @@ public class EquipoController {
     }
 
     /*
+        Muestra cada goleador, ordenado alfabeticamente por pais
+     */
+    @GetMapping("/goleadores/equipo/alf")
+    public ResponseEntity<?> goleadoresPorEquipoAlfabeticamente(){
+        return new ResponseEntity<>(equipoService.goleadoresPorEquipoAlfabeticamente(), HttpStatus.OK);
+    }
+
+    /*
         Elimina al equipo junto a los jugadores y el Dt
      */
     @DeleteMapping("/delete/equipo/{id_team}")
     public ResponseEntity<?> deleteEquipo(@PathVariable Long id_team){
         return new ResponseEntity<>(equipoService.deleteEquipo(id_team), HttpStatus.OK);
     }
+
 
 }
