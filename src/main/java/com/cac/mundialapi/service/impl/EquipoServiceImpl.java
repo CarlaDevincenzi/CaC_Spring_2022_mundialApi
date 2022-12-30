@@ -28,11 +28,11 @@ public class EquipoServiceImpl implements I_EquipoService {
     }
 
     @Override
-    public EquipoDtoReq addEquipo(EquipoDtoReq equipoDto) {
+    public SuccessDto addEquipo(EquipoDtoReq equipoDto) {
         Equipo nuevoEquipo = modelMapper.map(equipoDto, Equipo.class);
         Equipo equipoSave = equipoRepository.save(nuevoEquipo);
 
-        return modelMapper.map(equipoSave, EquipoDtoReq.class);
+        return new SuccessDto("Equipo agregado correctamente");
     }
 
     @Override
@@ -55,6 +55,8 @@ public class EquipoServiceImpl implements I_EquipoService {
             List<Jugador> jugadores = equipo.get().getTeamPlayers();
             jugadores.stream()
                     .forEach(j -> jugadoresDto.add(modelMapper.map(j, JugadorDtoResp.class)));
+        }else{
+            throw new NotFoundException("No se encontro el equipo buscado");
         }
 
        return jugadoresDto;
@@ -67,7 +69,10 @@ public class EquipoServiceImpl implements I_EquipoService {
 
         if(equipo.isPresent()){
             equipoResp = modelMapper.map(equipo.get(), EquipoDtoResp.class);
+        }else{
+            throw new NotFoundException("No se encontro el equipo buscado");
         }
+
         return equipoResp;
     }
 

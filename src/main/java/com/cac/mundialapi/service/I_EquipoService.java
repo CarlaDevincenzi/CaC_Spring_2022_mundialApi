@@ -9,7 +9,7 @@ import com.cac.mundialapi.dto.JugadorDtoResp;
 import java.util.List;
 
 public interface I_EquipoService {
-    EquipoDtoReq addEquipo(EquipoDtoReq equipoDto);
+    SuccessDto addEquipo(EquipoDtoReq equipoDto);
     List<EquipoDtoResp> listarEquipos();
     List<JugadorDtoResp> listarJugadoresDeUnEquipo(Long id_team);
     EquipoDtoResp listarUnEquipo(Long id_team);

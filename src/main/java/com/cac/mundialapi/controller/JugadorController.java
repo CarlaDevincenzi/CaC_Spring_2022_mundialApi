@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/mundial")
 public class JugadorController {
@@ -19,7 +21,7 @@ public class JugadorController {
     }
 
     @PostMapping("/crearJugador")
-    public ResponseEntity<?> crearJugador(@RequestBody JugadorDtoReq jugadorDtoReq){
+    public ResponseEntity<?> crearJugador(@Valid @RequestBody JugadorDtoReq jugadorDtoReq){
         return new ResponseEntity<>(jugadorService.addJugador(jugadorDtoReq), HttpStatus.OK);
     }
 
