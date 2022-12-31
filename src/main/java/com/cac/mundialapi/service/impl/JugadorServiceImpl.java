@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +26,9 @@ public class JugadorServiceImpl implements I_JugadorService {
         this.modelMapper = new ModelMapper();
     }
 
+    /*
+        metodo privado para calcular la edad desde su fecha de nacimiento y setearlo al jugador
+     */
     private int calculaEdad(LocalDate fecha) {
 
         LocalDate hoy = LocalDate.now();

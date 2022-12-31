@@ -1,5 +1,6 @@
 package com.cac.mundialapi.exception;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,5 +28,13 @@ public class ExceptionConfig {
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<?> integrityViolation(DataIntegrityViolationException ex){
+
+        String error = "Error al intentar la ejecucion. id inexistente.";
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,0 +1,36 @@
+JSON Creacion Equipo en Postman:
+--------------------------------
+{
+  "country": "España",
+  "dt": {
+    "name": "Luis",
+    "lastName": "Enrique",
+    "originCountry": "España"
+},
+  "worldCups": 1  
+}
+
+//////////////////////////////////////////
+
+JSON Creacion Jugador en Postman:
+---------------------------------
+{
+    "name": "Sergio",
+    "lastName": "Busquets",
+    "rolePlaying": "MEDIOCENTRO",
+    "birthDate": "1988-07-15",
+    "goals": 0,
+    "team": {
+        "idTeam": 9,
+        "country": "String",
+  "dt": {
+      "id_DT": 9,
+    "name": "String",
+    "lastName": "String",
+    "originCountry": "String"
+},
+  "worldCups": null
+  }
+}
+
+
